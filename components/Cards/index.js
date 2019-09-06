@@ -22,22 +22,21 @@ const entryPoint = document.querySelector(".cards-container");
 axios
 	.get("https://lambda-times-backend.herokuapp.com/articles")
 	.then(response => {
-		console.log(response.data);
-		response.data.forEach(item => {
-			const javascript = getArticles(item);
-			entryPoint.appendChild(javascript);
-		});
+		const { articles } = response.data;
+		console.log(articles);
+		for (let key in articles) {
+			let value = articles[key];
+			console.log(value);
+			value.forEach(item => {
+				const newCard = createCard(item);
+				entryPoint.appendChild(newCard);
+			});
+		}
 	})
 	.catch(error => {
 		console.log("Not returned", error);
 	});
-function getArticles(arr) {
-	console.log(arr);
-	arr.forEach(element => {
-		const articles = createCard(element);
-		entryPoint.appendChild(articles);
-	});
-}
+
 function createCard(data) {
 	const card = document.createElement("div");
 	const headline = document.createElement("div");
