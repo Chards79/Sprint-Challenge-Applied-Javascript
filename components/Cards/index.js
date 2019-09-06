@@ -23,13 +23,21 @@ axios
 	.get("https://lambda-times-backend.herokuapp.com/articles")
 	.then(response => {
 		console.log(response.data);
-		const articles = createCard(response.data);
-		entryPoint.appendChild(articles);
+		response.data.forEach(item => {
+			const javascript = getArticles(item);
+			entryPoint.appendChild(javascript);
+		});
 	})
 	.catch(error => {
 		console.log("Not returned", error);
 	});
-
+function getArticles(arr) {
+	console.log(arr);
+	arr.forEach(element => {
+		const articles = createCard(element);
+		entryPoint.appendChild(articles);
+	});
+}
 function createCard(data) {
 	const card = document.createElement("div");
 	const headline = document.createElement("div");
