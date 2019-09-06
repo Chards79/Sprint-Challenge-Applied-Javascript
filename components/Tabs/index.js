@@ -12,7 +12,7 @@ const entry = document.querySelector(".topics");
 axios
 	.get("https://lambda-times-backend.herokuapp.com/topics")
 	.then(response => {
-		console.log(response.data);
+		console.log(response.data.topics);
 		response.data.topics.forEach(item => {
 			const newTab = tab(item);
 			entry.appendChild(newTab);
@@ -22,9 +22,9 @@ axios
 		console.log("Nothing returned", error);
 	});
 
-function tab() {
+function tab(topics) {
 	const newDiv = document.createElement("div");
 	newDiv.classList.add("tab");
-	newDiv.textContent = data.topics;
+	newDiv.textContent = topics;
 	return newDiv;
 }
